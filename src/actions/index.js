@@ -1,9 +1,18 @@
-import { data } from "../data";
-
-export function fetchUsers() {
-  return (dispatch, getState) => {
-    const res = data;
-    console.log("res", res);
-    dispatch({ type: "GET_USERS", payload: res.bills });
+import { BILLDATA, BILLERROR, BILLLOADING } from "../constant/constant";
+import { data } from '../data';
+export function fetchData() {
+  return dispatch => {
+    dispatch({ type: BILLLOADING });
+    try {
+      return dispatch({
+        type: BILLDATA,
+        data: data.bills
+      })
+    } catch (error) {
+      dispatch({
+        type: BILLERROR,
+        error
+      });
+    }
   };
 }
