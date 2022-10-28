@@ -16,3 +16,20 @@ export function fetchData() {
     }
   };
 }
+
+export function AddData() {
+  return dispatch => {
+    dispatch({ type: BILLLOADING });
+    try {
+      return dispatch({
+        type: BILLDATA,
+        data: data.bills
+      })
+    } catch (error) {
+      dispatch({
+        type: BILLERROR,
+        error
+      });
+    }
+  };
+}

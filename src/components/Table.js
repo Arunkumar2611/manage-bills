@@ -14,9 +14,11 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Filter from "./Filter";
 import { fetchData } from "../actions";
+import AlertDialog from "./AddBillsComponent";
 
 const ColumnGroupingTable = (props) => {
   const [page, setPage] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   useEffect(() => {
@@ -33,6 +35,15 @@ const ColumnGroupingTable = (props) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    handleClose();
   };
 
   const Showing = (row) => {
@@ -77,9 +88,10 @@ const ColumnGroupingTable = (props) => {
                 </Paper>
               </TableCell>
               <TableCell align="center" colSpan={2}>
-                <Button variant="contained" startIcon={<AddIcon />}>
+                <Button variant="contained" onClick={handleClickOpen} startIcon={<AddIcon />}>
                   Add
                 </Button>
+                <AlertDialog open={open} handleClose={handleClose} />
               </TableCell>
             </TableRow>
             <TableRow>
