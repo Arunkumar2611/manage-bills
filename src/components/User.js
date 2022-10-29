@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../actions/index';
+import { fetchData } from '../actions/index';
 
 const User = (props) => {
 	useEffect(() => {
-		props.fetchUsers();
+		const { dispatch } = props;
+    	dispatch(fetchData());
 	}, []);
 
 	return (
@@ -19,13 +20,14 @@ const User = (props) => {
 	);
 };
 
-const mapStateToProps = state => {
-	return {
-		users: state.users
-	};
+const mapStateToProps = (state) => {
+    const { volcano } = state;
+    console.log(volcano)
+    return {
+        loading: volcano.loading,
+        items: volcano.data,
+        error: volcano.error
+    };
 };
 
-export default connect(
-	mapStateToProps,
-	{ fetchUsers }
-)(User);
+export default connect(mapStateToProps)(User);
