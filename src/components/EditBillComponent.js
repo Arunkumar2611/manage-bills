@@ -6,13 +6,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { connect } from 'react-redux';
+import { EditBills } from '../actions';
 
-export default function EditBillComponent(props) {
-    const { handleClose, open } = props
+
+const EditBillComponent = (props) => {
+  const { handleClose, open, row, items } = props
+  const { description, category, amount, id } = row.row;
+
   const [data, setData] = useState({
-    description: "",
-    category:"",
-    amount: "",
+    description: description,
+    category: category,
+    amount: amount,
+    id: id
   })
 
   const handleChange = (e) => {
@@ -20,7 +26,19 @@ export default function EditBillComponent(props) {
   }
 
   const handleClick = () => {
-    console.log("data", data);
+    let dateObj = new Date();
+    let month = dateObj.getUTCMonth() + 1;
+    let day = dateObj.getUTCDate();
+    let year = dateObj.getUTCFullYear();
+    let newdate = day + "-" + month + "-" + year;
+
+    const finalData = {
+      ...data,
+      date: newdate
+    }
+
+    const { dispatch } = props;
+    dispatch(EditBills(finalData));
     handleClose()
   }
 
@@ -31,7 +49,7 @@ export default function EditBillComponent(props) {
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle>{"Edit Bill"}</DialogTitle>
+        <DialogTitle>{"Edit Bills"}</DialogTitle>
         <DialogContent>
         <Box
       sx={{
@@ -68,10 +86,21 @@ export default function EditBillComponent(props) {
     </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClick}>Agree</Button>
+          <Button variant='contained' onClick={handleClose}>Cancel</Button>
+          <Button variant='contained' onClick={handleClick}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  const { bills } = state;
+  return {
+    loading: bills.loading,
+    items: bills.data,
+    error: bills.error,
+  };
+};
+
+export default connect(mapStateToProps)(EditBillComponent);
