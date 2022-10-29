@@ -1,5 +1,6 @@
-import { BILLDATA, BILLERROR, BILLLOADING } from "../constant/constant";
+import { BILLDATA, BILLERROR, BILLLOADING, ADDBILLDATA } from "../constant/constant";
 import { data } from '../data';
+
 export function fetchData() {
   return dispatch => {
     dispatch({ type: BILLLOADING });
@@ -17,19 +18,11 @@ export function fetchData() {
   };
 }
 
-export function AddData() {
+export function AddData(addingData) {
   return dispatch => {
-    dispatch({ type: BILLLOADING });
-    try {
       return dispatch({
-        type: BILLDATA,
-        data: data.bills
+        type: ADDBILLDATA,
+        data: addingData
       })
-    } catch (error) {
-      dispatch({
-        type: BILLERROR,
-        error
-      });
-    }
   };
 }

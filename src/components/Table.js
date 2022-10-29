@@ -51,9 +51,7 @@ const ColumnGroupingTable = (props) => {
     return (
       <TableRow
         hover
-        role="checkbox"
         tabIndex={-1}
-        key={row.code}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
         <TableCell>{id}</TableCell>
@@ -107,7 +105,7 @@ const ColumnGroupingTable = (props) => {
             {items
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                return <Showing row={row} />;
+                return <Showing key={row.id} row={row} />;
               })}
           </TableBody>
         </Table>
