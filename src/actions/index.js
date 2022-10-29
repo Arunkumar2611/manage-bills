@@ -1,4 +1,4 @@
-import { BILLDATA, BILLERROR, BILLLOADING, ADDBILLDATA } from "../constant/constant";
+import { BILLDATA, BILLERROR, BILLLOADING, ADDBILLDATA, EDITBILLS, DELETEBILLS } from "../constant/constant";
 import { data } from '../data';
 
 export function fetchData() {
@@ -23,6 +23,24 @@ export function AddData(addingData) {
       return dispatch({
         type: ADDBILLDATA,
         data: addingData
+      })
+  };
+}
+
+export function EditBills(editData) {
+  return dispatch => {
+      return dispatch({
+        type: EDITBILLS,
+        data: editData
+      })
+  };
+}
+
+export function DeleteBills(deleteData) {
+  return dispatch => {
+      return dispatch({
+        type: DELETEBILLS,
+        data: deleteData
       })
   };
 }

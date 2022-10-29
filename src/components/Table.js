@@ -60,7 +60,7 @@ const ColumnGroupingTable = (props) => {
         <TableCell>{amount}</TableCell>
         <TableCell>{date}</TableCell>
         <TableCell>
-          <CrudOperation />
+          <CrudOperation row={row} />
         </TableCell>
       </TableRow>
     );
