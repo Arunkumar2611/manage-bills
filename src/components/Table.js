@@ -1,32 +1,51 @@
-import React, { useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import SearchComponent from "./SearchComponent";
+import React, { useEffect, useState } from "react";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Button,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 import { connect } from "react-redux";
-import CrudOperation from "./CrudOperation";
-import Button from "@mui/material/Button";
+import EditAndDelete from "./CrudOperation";
 import AddIcon from "@mui/icons-material/Add";
-import Filter from "./Filter";
 import { fetchData } from "../actions";
-import AlertDialog from "./AddBillsComponent";
+import AddBillsComponent from "./AddBillsComponent";
+import SearchBar from "material-ui-search-bar";
 
 const ColumnGroupingTable = (props) => {
+  const { loading, items, error } = props;
   const [page, setPage] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rows, setRows] = useState(items);
+  const [searched, setSearched] = useState("");
+  // const [category, setCategory] = React.useState('');
 
   useEffect(() => {
     const { dispatch } = props;
     dispatch(fetchData());
   }, []);
 
-  const { loading, items, error } = props;
+  useEffect(() => {
+    setRows(items);
+  }, [items]);
+
+  const handleFilterChange = (event) => {
+    const filteredRows = items.filter((row) => {
+      return row.category === event.target.value;
+    });
+    console.log(filteredRows);
+    setRows(filteredRows);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -46,6 +65,18 @@ const ColumnGroupingTable = (props) => {
     handleClose();
   };
 
+  const requestSearch = (searchedVal) => {
+    const filteredRows = items.filter((row) => {
+      return row.description.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+    setRows(filteredRows);
+  };
+
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch(searched);
+  };
+
   const Showing = (row) => {
     const { id, description, category, amount, date } = row.row;
     return (
@@ -60,7 +91,7 @@ const ColumnGroupingTable = (props) => {
         <TableCell>{amount}</TableCell>
         <TableCell>{date}</TableCell>
         <TableCell>
-          <CrudOperation row={row} />
+          <EditAndDelete row={row} />
         </TableCell>
       </TableRow>
     );
@@ -77,19 +108,43 @@ const ColumnGroupingTable = (props) => {
             <TableRow>
               <TableCell align="center" colSpan={3}>
                 <Paper>
-                  <SearchComponent />
+                  <SearchBar
+                    value={searched}
+                    onChange={(searchVal) => requestSearch(searchVal)}
+                    onCancelSearch={() => cancelSearch()}
+                  />
                 </Paper>
               </TableCell>
               <TableCell align="center" colSpan={2}>
-                <Paper>
-                  <Filter />
-                </Paper>
+                <FormControl sx={{ width: 300 }}>
+                  <InputLabel>Category</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={category}
+                    label="Category"
+                    onChange={handleFilterChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {items.map((name) => (
+                      <MenuItem key={name.id} value={name.category}>
+                        {name.category}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </TableCell>
               <TableCell align="center" colSpan={2}>
-                <Button variant="contained" onClick={handleClickOpen} startIcon={<AddIcon />}>
+                <Button
+                  variant="contained"
+                  onClick={handleClickOpen}
+                  startIcon={<AddIcon />}
+                >
                   Add
                 </Button>
-                <AlertDialog open={open} handleClose={handleClose} />
+                <AddBillsComponent open={open} handleClose={handleClose} />
               </TableCell>
             </TableRow>
             <TableRow>
@@ -102,7 +157,7 @@ const ColumnGroupingTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items
+            {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return <Showing key={row.id} row={row} />;
@@ -113,7 +168,7 @@ const ColumnGroupingTable = (props) => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={items.length}
+        count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
