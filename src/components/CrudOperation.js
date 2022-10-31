@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,7 +7,7 @@ import EditBillComponent from "./EditBillComponent";
 import { connect } from "react-redux";
 import { DeleteBills } from "../actions";
 
-const CrudOperation = (props) => {
+const EditAndDelete = (props) => {
   const {row, dispatch} = props;
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -45,4 +45,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CrudOperation);
+export default connect(mapStateToProps)(EditAndDelete);

@@ -1,12 +1,10 @@
 import './App.css';
-import Home from './components/Home';
-import User from './components/User';
+import ResponsiveDrawer from './components/DrawerMenu';
 
 function App() {
   return (
     <div className="App">
-      {/* <User /> */}
-      <Home />
+      <ResponsiveDrawer />
     </div>
   );
 }
