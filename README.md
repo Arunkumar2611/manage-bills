@@ -1,3 +1,13 @@
+# Bill Manager - React, Redux, Materialui, Chart.js
+
+## The app uses following libraries/packages for development, build and deployment:
+
+- **[React.js](https://reactjs.org/)** - An open-source JavaScript library for building user interfaces & single-page or mobile applications.
+- **[Redux.js](https://redux.js.org/)** - A Predictable State Container for JS Apps
+- **[Redux](https://react-redux.js.org/)** - A Redux library to handle Asynchronous Actions such as fetching data more easily & effciently
+- **[React-Router](https://www.npmjs.com/package/react-router)** - A package that provides the core routing functionality for React Router
+- **[Chart.js](https://www.chartjs.org/)** - an open-source JavaScript library to draw different types of charts by using the HTML5 canvas element
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
