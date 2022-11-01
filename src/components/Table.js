@@ -43,7 +43,7 @@ const ColumnGroupingTable = (props) => {
     const filteredRows = items.filter((row) => {
       return row.category === event.target.value;
     });
-    console.log(filteredRows);
+    // console.log(filteredRows);
     setRows(filteredRows);
   };
 
