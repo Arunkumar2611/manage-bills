@@ -1,11 +1,17 @@
-import './App.css';
-import ResponsiveDrawer from './components/DrawerMenu';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Table from './components/Table';
+import LineChart from './components/LineChart';
+import NavBar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <ResponsiveDrawer />
-    </div>
+    <BrowserRouter>
+      <NavBar />
+      <Routes>
+          <Route path="/" element={<Table />} />
+          <Route path="/overview" element={<LineChart />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
