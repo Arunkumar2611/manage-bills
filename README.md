@@ -17,14 +17,18 @@
 
 ## Screens:
 ![image](https://user-images.githubusercontent.com/56310665/199166968-49983b83-c6e4-4821-996b-6b0fb4d60068.png)
+![image](https://user-images.githubusercontent.com/56310665/199167560-f667cd80-3d44-420e-8bc4-cdaa5b968d03.png)
+
 
 2. **Create/Edit Bill Screen** - Create or edit bills on this screen using a simple form
 ![image](https://user-images.githubusercontent.com/56310665/199167057-06ed0453-8d80-4b14-99cb-98524b8cc459.png)
 
 ![image](https://user-images.githubusercontent.com/56310665/199167128-c0e3cc88-4b5f-407c-99c3-68145333a7de.png)
 
+3. **Filter Bills** - Filter bills by using dropdown
+![image](https://user-images.githubusercontent.com/56310665/199167698-f35081e1-d22c-40b7-82df-426e13d9c3ef.png)
 
-3. **List all Bills Screen** - Create or edit bills on this screen using a chart
+4. **List all Bills Screen** - Create or edit bills on this screen using a chart
 ![image](https://user-images.githubusercontent.com/56310665/199167297-d1a67004-7dd3-42ce-b365-1d1c407443b3.png)
 
 
